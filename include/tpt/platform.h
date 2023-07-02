@@ -17,8 +17,4 @@
 #endif
 #endif
 
-#ifndef TPTAPI
-#define TPTAPI
-#endif
-
 #endif  // TPT_PLATFORM_H

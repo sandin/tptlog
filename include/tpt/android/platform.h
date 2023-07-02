@@ -10,6 +10,7 @@
 #define TPT_ARCH_32 1
 #endif
 
-#define TPT_POSIX_TIME
+#define TPT_POSIX_TIME 1
+#define TPT_POSIX_THREAD 1
 
 #endif  // TPT_ANDROID_PLATFORM_H

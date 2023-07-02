@@ -11,6 +11,7 @@
 #define TPT_ARCH_32 1
 #endif
 
-#define TPT_WINDOWS_TIME
+#define TPT_WINDOWS_TIME 1
+#define TPT_WINDOWS_THREAD 1
 
 #endif  // TPT_WINDOWS_PLATFORM_H

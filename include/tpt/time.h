@@ -7,17 +7,21 @@
 
 namespace tpt {
 
-typedef struct tpt_time {
-  int64_t tv_sec;  // time_t
-  int32_t tv_nsec;
-} tpt_time;
+class Time {
+ public:
+  struct TimeSpec {
+    int64_t tv_sec;  // time_t
+    int32_t tv_nsec;
+  };
 
-/**
- * @brief get current time
- *
- * @return tpt_time
- */
-TPTAPI tpt_time tpt_now();
+  /**
+   * @brief get current time
+   *
+   * @return TimeSpec
+   */
+  static TimeSpec Now();
+
+};  // class Time
 
 }  // namespace tpt
 

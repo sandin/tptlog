@@ -8,14 +8,12 @@
 
 namespace tpt {
 
-tpt_time tpt_now() {
+// static
+Time::TimeSpec Time::Now() {
   struct timespec now;
   clock_gettime(CLOCK_REALTIME, &now);
-
-  tpt_time time;
-  time.tv_sec = now.tv_sec;
-  time.tv_nsec = now.tv_nsec;
-  return time;
+  return TimeSpec{.tv_sec = now.tv_sec,
+                  .tv_nsec = static_cast<int32_t>(now.tv_nsec)};
 }
 
 }  // namespace tpt

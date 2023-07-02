@@ -6,11 +6,10 @@
 
 #include "tpt/platform.h"
 
-using tpt::tpt_now;
-using tpt::tpt_time;
+using tpt::Time;
 
-TEST(tpt_time, tpt_now) {
-  tpt_time now = tpt_now();
+TEST(Time, Now) {
+  Time::TimeSpec now = Time::Now();
   ASSERT_TRUE(now.tv_sec > 0);
   ASSERT_TRUE(now.tv_nsec > 0);
 
