@@ -37,7 +37,7 @@ class FileOutput : public Output {
  private:
   string filename_;
   fstream* fstream_;
-  RingBuffer buffer_;
+  RingBuffer<uint8_t> buffer_;
 };  // class FileOutput
 
 }  // namespace tptlog
