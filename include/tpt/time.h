@@ -3,8 +3,6 @@
 
 #include <cstdint>
 
-#include "tpt/platform.h"
-
 namespace tpt {
 
 class Time {

@@ -21,4 +21,8 @@ if(TPT_PLATFORM_ANDROID)
 	target_link_libraries(tpt ${log-lib})
 endif()
 
+if(ABSEIL_ENABLED)
+	target_link_libraries(tpt absl::synchronization)
+endif()
+
 target_include_directories(tpt PUBLIC ${PROJECT_SOURCE_DIR}/include/)

@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 option(TEST_ENABLED "enable gtest" ON)
+option(ABSEIL_ENABLED "enable build with abseil" ON)
 
 if(UNIX)
   if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
@@ -25,8 +26,14 @@ if(WIN32)
   set(TPT_PLATFORM_WINDOWS ON)
 endif()
 
+if(ABSEIL_ENABLED)
+  set(ABSEIL_ENABLED ON CACHE INTERNAL "")
+  add_definitions(-DTPT_ABSEIL_SYNC=1)
+  add_subdirectory(libs/abseil-cpp)
+endif()
+
 add_subdirectory(src)
 
-if(${TEST_ENABLED})
-    add_subdirectory(tests)
+if(TEST_ENABLED)
+  add_subdirectory(tests)
 endif()
