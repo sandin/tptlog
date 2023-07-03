@@ -16,3 +16,4 @@ enable_testing()
 include(GoogleTest)
 
 add_subdirectory(tpt)
+add_subdirectory(tptlog)

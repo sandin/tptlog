@@ -1,7 +1,7 @@
 #ifndef TPT_LINUX_PLATFORM_H
 #define TPT_LINUX_PLATFORM_H
 
-#define TPT_ANDROID 1
+#define TPT_LINUX 1
 #define TPT_POSIX 1
 
 #ifdef _LP64
