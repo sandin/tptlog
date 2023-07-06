@@ -11,6 +11,8 @@
 #define TPT_ARCH_32 1
 #endif
 
+#define TPT_CACHE_LINE_SIZE 64
+
 #define TPT_WINDOWS_TIME 1
 #define TPT_WINDOWS_THREAD 1
 

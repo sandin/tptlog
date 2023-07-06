@@ -17,4 +17,12 @@
 #endif
 #endif
 
+#ifdef __GNUC__
+#define TPT_LIKELY(x) __builtin_expect((x), 1)
+#define TPT_UNLIKELY(x) __builtin_expect((x), 0)
+#else /* __GNUC__ */
+#define TPT_LIKELY(x) (x)
+#define TPT_UNLIKELY(x) (x)
+#endif /* __GNUC__ */
+
 #endif  // TPT_PLATFORM_H
