@@ -93,6 +93,12 @@ Thread::Thread(const char* name, Thread::Func func, Thread::Arg arg) {
   state_ = State::kNew;
 }
 
+Thread::~Thread() {
+  if (impl_) {
+    delete impl_;
+  }
+}
+
 // static
 uintptr_t Thread::GetCurrentThreadId() {
 #if TPT_APPLE
@@ -104,12 +110,6 @@ uintptr_t Thread::GetCurrentThreadId() {
   return static_cast<uintptr_t>(gettid());
 #endif
   // or get pthread id: return (uintptr_t)pthread_self();
-}
-
-Thread::~Thread() {
-  if (impl_) {
-    delete impl_;
-  }
 }
 
 }  // namespace tpt

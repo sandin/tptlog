@@ -39,7 +39,7 @@ class RingBuffer {
     const size_t free_size = read_idx <= write_idx
                                  ? (buffer_.size() - (write_idx - read_idx))
                                  : (read_idx - write_idx);
-    if (TPT_LIKELY(size <= free_size)) {
+    if (TPT_LIKELY(size < free_size)) {
       if (write_idx + size <= buffer_.capacity()) {
         memcpy(buffer_.data() + write_idx, data, size);
       } else {
@@ -57,10 +57,11 @@ class RingBuffer {
   }
 
   bool Read(std::function<void(T*, size_t)> consumer) {
-    // TODO: is empty: return false
     const size_t read_idx = read_idx_.load(std::memory_order_relaxed);
     const size_t write_idx = write_idx_.load(std::memory_order_acquire);  // -V-
-    if (write_idx >= read_idx) {
+    if (write_idx == read_idx) {
+      return false; // is empty
+    } else if (write_idx > read_idx) {
       consumer(buffer_.data() + read_idx, write_idx - read_idx);
     } else {
       consumer(buffer_.data() + read_idx, buffer_.capacity() - read_idx);

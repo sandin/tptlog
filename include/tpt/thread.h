@@ -48,23 +48,28 @@ class Thread {
   TPT_DISALLOW_COPY_AND_ASSIGN(Thread);
 
   static uintptr_t GetCurrentThreadId();
+  static void Sleep(uint32_t ms);
 
   State GetState() const { return state_; }
 
-  void Start() {
+  bool Start() {
     if (impl_ != nullptr && state_ == State::kNew) {
       if (impl_->Start()) {
         state_ = State::kStarted;
+        return true;
       }
     }
+    return false;
   }
 
-  void Join() {
+  bool Join() {
     if (impl_ != nullptr && state_ == State::kStarted) {
       if (impl_->Join()) {
         state_ = State::kDone;
+        return true;
       }
     }
+    return false;
   }
 
  private:

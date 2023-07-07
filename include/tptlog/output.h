@@ -4,40 +4,45 @@
 #include <cstddef>
 #include <fstream>
 #include <string>
+#include <atomic>
 
+#include "tpt/thread.h"
 #include "tpt/ring_buffer.h"
 
 namespace tptlog {
-
-using std::fstream;
-using std::string;
-using tpt::RingBuffer;
 
 // Output Interface
 class Output {
  public:
   virtual ~Output() {}
-  virtual void Serialize(const string& content) = 0;
+  virtual bool Serialize(const std::string& content) = 0;
   virtual void Flush() = 0;
 };  // class Output
 
 class FileOutput : public Output {
  public:
-  FileOutput(const string& filename, size_t initial_buffer_size)
-      : filename_(filename), fstream_(nullptr), buffer_(initial_buffer_size) {}
+  FileOutput(const std::string& filename, size_t initial_buffer_size)
+      : filename_(filename), fstream_(nullptr), buffer_(initial_buffer_size), thread_(nullptr), thread_running_(false) {}
   virtual ~FileOutput() {
     if (fstream_) {
       delete fstream_;
     }
+    if (thread_) {
+      delete thread_;
+    }
   }
 
-  virtual void Serialize(const string& content) override;
+  virtual bool Serialize(const std::string& content) override;
   virtual void Flush() override;
 
  private:
-  string filename_;
-  fstream* fstream_;
-  RingBuffer<uint8_t> buffer_;
+  void* Run(tpt::Thread::Arg arg); 
+
+  std::string filename_;
+  std::fstream* fstream_;
+  tpt::RingBuffer<uint8_t> buffer_;
+  tpt::Thread* thread_;
+  std::atomic_bool thread_running_;
 };  // class FileOutput
 
 }  // namespace tptlog
